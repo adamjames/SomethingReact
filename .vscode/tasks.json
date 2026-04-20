@@ -1,0 +1,39 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "dotnet run",
+            "type": "shell",
+            "command": "dotnet run --project ${workspaceFolder}/ConnellsReact.csproj",
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": { "regexp": "^$" },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "Building\\.\\.\\.",
+                    "endsPattern": "Now listening on"
+                }
+            }
+        },
+        {
+            "label": "npm start",
+            "type": "shell",
+            "command": "npm start",
+            "options": { "cwd": "${workspaceFolder}/wwwroot" },
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": { "regexp": "^$" },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "Starting the development server",
+                    "endsPattern": "Compiled successfully"
+                }
+            }
+        },
+        {
+            "label": "start all",
+            "dependsOn": ["dotnet run", "npm start"],
+            "dependsOrder": "parallel"
+        }
+    ]
+}

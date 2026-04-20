@@ -1,5 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
 
+builder.WebHost.UseUrls("http://localhost:5000");
+
 // Add services to the container.
 // Configure (disable) Cross-Origin Resource Separation for now
 builder.Services.AddCors(o => o.AddPolicy("AllowAll", builder =>
@@ -16,10 +18,6 @@ var app = builder.Build();
 app.UseDefaultFiles();
 app.UseStaticFiles();
 app.UseCors("AllowAll");
-
-app.UseHttpsRedirection();
-
-
 
 var todos = new List<Todo>();
 
@@ -39,6 +37,6 @@ app.MapPut("/todos/{id}", (int id, Todo t) =>
     return Results.Ok(todos[index]);
 });
 
-app.Run();
+app.Run("http://localhost:5000");
 
 record Todo(int Id, string Description, bool Completed);
