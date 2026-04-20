@@ -1,11 +1,9 @@
-import React, { SyntheticEvent } from "react"
-
-const { useState } = React
+import { useState, SyntheticEvent } from "react";
 
 type Todo = {
-  id: number
-  description: string
-  completed: boolean
+  Id: number
+  Description: string
+  Completed: boolean
 }
 
 function App() {
@@ -16,21 +14,21 @@ function App() {
   async function addTodo(e: SyntheticEvent) {
     e.preventDefault()
     if (!newTodo.trim()) return
-    const todo: Todo = { id: Date.now(), description: newTodo.trim(), completed: false }
+    const todo: Todo = { Id: Date.now(), Description: newTodo.trim(), Completed: false }
     await fetch('/todos', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(todo) })
     setTodos([...todos, todo])
     setNewTodo('')
   }
 
   async function toggleTodo(id: number) {
-    const todo = todos.find(t => t.id === id)!
-    const updated = { ...todo, completed: !todo.completed }
+    const todo = todos.find(t => t.Id === id)!
+    const updated = { ...todo, Completed: !todo.Completed }
     await fetch(`/todos/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(updated) })
-    setTodos(todos.map(t => t.id === id ? updated : t))
+    setTodos(todos.map(t => t.Id === id ? updated : t))
   }
 
   const filtered = todos.filter(t =>
-    filter === 'All' ? true : filter === 'Active' ? !t.completed : t.completed
+    filter === 'All' ? true : filter === 'Active' ? !t.Completed : t.Completed
   )
 
   return (
@@ -41,7 +39,7 @@ function App() {
             type="text"
             placeholder="What are we doing?"
             value={newTodo}
-            onChange={(e) => setNewTodo(e.target.value)}
+            onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setNewTodo(e.target.value)}
           />
           <button type="submit" disabled={!newTodo.trim()}>Add</button>
         </form>
@@ -54,8 +52,8 @@ function App() {
 
         <ul>
           {filtered.map(t => (
-            <li key={t.id} onClick={() => toggleTodo(t.id)} style={{ cursor: 'pointer' }}>
-              {t.completed ? 'DONE' : 'INCOMPLETE'} {t.description}
+            <li key={t.Id} onClick={() => toggleTodo(t.Id)} style={{ cursor: 'pointer' }}>
+              {t.Completed ? 'DONE' : 'INCOMPLETE'} {t.Description}
             </li>
           ))}
         </ul>
