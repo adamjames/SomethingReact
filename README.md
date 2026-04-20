@@ -1,0 +1,13 @@
+- Started with a .Net Web API Starter.
+- Used npm + create-react-app for the wwwroot content.
+- Got partway through, then followup call.
+- Post-call, implemented basic todo functionality + in-memory list.
+- Got annoyed by eslint/typescript complaining about the function return content, found out the issue was tsconfig and react changes...
+- Spent a while futzing around with proxy-related stuff trying to remember why on earth backend auto-proxy wasn't cooperating.
+- Pulled out some things I remembered from the last time I ran into this...
+ - allowedHosts in .net
+ - app.Run parameter
+ - possible json casing?
+ - .env settings
+
+- Realised what time it was. Figured I shoud probably send it!
