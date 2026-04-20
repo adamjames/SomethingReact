@@ -1,0 +1,6 @@
+@ConnellsReact_HostAddress = http://localhost:5048
+
+GET {{ConnellsReact_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
