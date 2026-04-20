@@ -1,6 +1,15 @@
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+// Configure (disable) Cross-Origin Resource Separation for now
+builder.Services.AddCors(o => o.AddPolicy("AllowAll", builder =>
+{
+    builder.AllowAnyHeader();
+    builder.AllowAnyMethod();
+    builder.AllowAnyOrigin();
+}));
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
@@ -11,6 +20,11 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+
+// Serve files from wwwroot, apply the policy we defined before.
+app.UseDefaultFiles();
+app.UseStaticFiles();
+app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
 
